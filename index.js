@@ -374,7 +374,7 @@ function sha256(message, debugging) {
 						u[x + y * 32 + z]
 					);
 				}
-				out("w[" + y + "]", w[y]);
+				out("w[" + y + "]", w[y], bin2hex(w[y]));
 			}
 
 			/*
@@ -416,7 +416,7 @@ function sha256(message, debugging) {
 				z = w[i-7];
 				//out("z", z);
 				w[i] = add(y, s0, z, s1);
-				out("w["+i+"]", w[i]);
+				//out("w["+i+"]", w[i]);
 			}
 			/*
 		    Initialize working variables to current hash value:
@@ -449,7 +449,7 @@ function sha256(message, debugging) {
 		        m = rightrotate(e, 11);
 		        n = rightrotate(e, 25);
 		        S1 = xor(l, m, n);
-		        out("S1", S1);
+		        //out("S1", S1);
 		        /*
 		        ch := (e and f) xor ((not e) and g)
 		        */
@@ -457,12 +457,12 @@ function sha256(message, debugging) {
 		        m = not(e);
 		        n = and(m, g);
 		        ch = xor(l, n);
-		        out("ch", ch);
+		        //out("ch", ch);
 		        /*
 		        temp1 := h + S1 + ch + k[i] + w[i]
 		        */
 		        temp1 = add(h, S1, ch, k[i], w[i]);
-		        out("temp1", temp1);
+		        //out("temp1", temp1);
 		        /*
 		        S0 := (a rightrotate 2) xor (a rightrotate 13) xor (a rightrotate 22)
 		        */
@@ -470,7 +470,7 @@ function sha256(message, debugging) {
 		        m = rightrotate(a, 13);
 		        n = rightrotate(a, 22);
 		        S0 = xor(l, m, n);
-		        out("S0", S0);
+		        //out("S0", S0);
 		        /*
 		        maj := (a and b) xor (a and c) xor (b and c)
 		        */
@@ -478,12 +478,12 @@ function sha256(message, debugging) {
 		        m = and(a, c);
 		        n = and(b, c);
 		        maj = xor(l, m, n);
-		        out("maj", maj);
+		        //out("maj", maj);
 		        /*
 		        temp2 := S0 + maj
 		 		*/
 		 		temp2 = add(S0, maj);
-		 		out("temp2", temp2);
+		 		//out("temp2", temp2);
 		 		/*
 		        h := g
 		        g := f
@@ -504,35 +504,35 @@ function sha256(message, debugging) {
 		        b = a;
 		        a = add(temp1, temp2);
 		        //out("a", a);
-				/*
-			    Add the compressed chunk to the current hash value:
-			    h0 := h0 + a
-			    h1 := h1 + b
-			    h2 := h2 + c
-			    h3 := h3 + d
-			    h4 := h4 + e
-			    h5 := h5 + f
-			    h6 := h6 + g
-			    h7 := h7 + h
-			    */
-			    h0 = add(h0, a);
-			    h1 = add(h1, b);
-			    h2 = add(h2, c);
-			    h3 = add(h3, d);
-			    h4 = add(h4, e);
-			    h5 = add(h5, f);
-			    h6 = add(h6, g);
-			    h7 = add(h7, h);
-
-			    out("h0", h0);
-				out("h1", h1);
-				out("h2", h2);
-				out("h3", h3);
-				out("h4", h4);
-				out("h5", h5);
-				out("h6", h6);
-				out("h7", h7);
+		        out("t="+i, arrayBin2hex([a,b,c,d,e,f,g,h]).join(' '));
 			}
+			/*
+		    Add the compressed chunk to the current hash value:
+		    h0 := h0 + a
+		    h1 := h1 + b
+		    h2 := h2 + c
+		    h3 := h3 + d
+		    h4 := h4 + e
+		    h5 := h5 + f
+		    h6 := h6 + g
+		    h7 := h7 + h
+		    */
+		    out("h0", bin2hex(h0), "+", bin2hex(a), "=", bin2hex(add(h0, a)));
+		    h0 = add(h0, a);
+		    out("h1", bin2hex(h1), "+", bin2hex(b), "=", bin2hex(add(h1, b)));
+		    h1 = add(h1, b);
+		    out("h2", bin2hex(h2), "+", bin2hex(c), "=", bin2hex(add(h2, c)));
+		    h2 = add(h2, c);
+		    out("h3", bin2hex(h3), "+", bin2hex(d), "=", bin2hex(add(h3, d)));
+		    h3 = add(h3, d);
+		    out("h4", bin2hex(h4), "+", bin2hex(e), "=", bin2hex(add(h4, e)));
+		    h4 = add(h4, e);
+		    out("h5", bin2hex(h5), "+", bin2hex(f), "=", bin2hex(add(h5, f)));
+		    h5 = add(h5, f);
+		    out("h6", bin2hex(h6), "+", bin2hex(g), "=", bin2hex(add(h6, g)));
+		    h6 = add(h6, g);
+		    out("h7", bin2hex(h7), "+", bin2hex(h), "=", bin2hex(add(h7, h)));
+		    h7 = add(h7, h);
 		}
 		/*
 		Produce the final hash value (big-endian):
@@ -541,6 +541,7 @@ function sha256(message, debugging) {
 		digest = arrayBin2hex([h0,h1,h2,h3,h4,h5,h6,h7]);
 	} catch (e) {
 		err = e;
+		console.error("ERROR", e);
 	} finally {
 		return debugging ? [digest.join(" "), debug, err] : digest.join('');
 	}
@@ -551,39 +552,54 @@ function testing() {
 	tests
 	*/
 	var tests = [
+	
 		[
 			"",
 			"E3B0C442 98FC1C14 9AFBF4C8 996FB924 27AE41E4 649B934C A495991B 7852B855"
 		],
+	
 		[
 			"abc",
 			"BA7816BF 8F01CFEA 414140DE 5DAE2223 B00361A3 96177A9C B410FF61 F20015AD"
 		],
+	
 		[
 			"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
 			"248D6A61 D20638B8 E5C02693 0C3E6039 A33CE459 64FF2167 F6ECEDD4 19DB06C1"
 		]
+	
 	];
 
 	tests.forEach(function(test, index) {
 		// reset debug
 		debug = [];
 
-		var debugging = true,
+		var debugging = false,
 			message = test[0],
 			expected = debugging ? test[1] : test[1].split(' ').join(''),
-			output = sha256(message, debugging),
-			hash = debugging ? output[0] : output,
-			extra = debugging ? output[1] : 0,
-			err = debugging ? output[2]: null,
-			result = hash === expected;
+			output, hash, extra, err, result,
+			start, end, elapsed;
+
+		// begin test:
+		start = new Date();
+
+		output = sha256(message, debugging);
+
+		end = new Date();
+
+		elapsed = end.getTime() - start.getTime();
+
+		hash = debugging ? output[0] : output;
+		extra = debugging ? output[1] : 0;
+		err = debugging ? output[2]: null;
+		result = hash === expected;
 
 		console.log(" ");
 		console.log("test", index+1);
 		console.log("message", "'" + message + "'");
 		console.log("expected", expected);
 		console.log("    hash", hash);
-		console.log("result", result);
+		console.log("result", result, "in", elapsed, "milliseconds");
 
 		if (result) {
 			console.log("SUCCESS!");
