@@ -604,6 +604,7 @@ function sha256(input, next) {
       /*
       S0 := (a rightrotate 2) xor (a rightrotate 13) xor (a rightrotate 22)
       */
+      //s0 = (a >>> 2 | a << (32 - 2)) ^ (a >>> 13 | a << (32 - 13)) ^ (a >>> 22 | a << (32 - 22));
       s0 = (a >>> 2 | a << 30) ^ (a >>> 13 | a << 19) ^ (a >>> 22 | a << 10);
       /*
       maj := (a and b) xor (a and c) xor (b and c)
