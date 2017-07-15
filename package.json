@@ -1,0 +1,26 @@
+{
+  "name": "sha256",
+  "version": "1.0.0",
+  "description": "sha-256 in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffallen6767/sha-256-js.git"
+  },
+  "keywords": [
+    "sha-256"
+  ],
+  "author": "jeffallen6767",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/jeffallen6767/sha-256-js/issues"
+  },
+  "homepage": "https://github.com/jeffallen6767/sha-256-js#readme",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "utf8": "^2.1.2"
+  }
+}
