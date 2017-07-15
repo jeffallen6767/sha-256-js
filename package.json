@@ -19,8 +19,11 @@
     "url": "https://github.com/jeffallen6767/sha-256-js/issues"
   },
   "homepage": "https://github.com/jeffallen6767/sha-256-js#readme",
-  "dependencies": {
+  "devDependencies": {
     "commander": "^2.11.0",
     "utf8": "^2.1.2"
+  },
+  "dependencies": {
+    
   }
 }
