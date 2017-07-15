@@ -35,13 +35,13 @@ function testing() {
         "248D6A61 D20638B8 E5C02693 0C3E6039 A33CE459 64FF2167 F6ECEDD4 19DB06C1"
       ],
       [
-        fs.readFileSync("./5k.txt", 'utf8'),
+        fs.readFileSync("./data/5k.txt", 'utf8'),
         "82FF26C4 0E394578 2B37ECB7 CA844E60 E850C8B9 B1B5FBE3 4486AF29 FE8B612E"
       ],
       
     
       [
-        fs.readFileSync("./a_1m.dat.txt", 'utf8'),
+        fs.readFileSync("./data/a_1m.dat.txt", 'utf8'),
         "CDC76E5C 9914FB92 81A1C7E2 84D73E67 F1809A48 A497200E 046D39CC C7112CD0"
       ]
     
