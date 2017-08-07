@@ -1,5 +1,5 @@
 {
-  "name": "sha256",
+  "name": "sha-256-js",
   "version": "1.0.0",
   "description": "sha-256 in javascript",
   "main": "index.js",
@@ -24,6 +24,6 @@
     "utf8": "^2.1.2"
   },
   "dependencies": {
-    
+    "testing" : "https://github.com/jeffallen6767/testing.git"
   }
 }
