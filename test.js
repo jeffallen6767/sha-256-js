@@ -60,7 +60,7 @@ function testFormat(msg, max) {
 testData.forEach(function(tdat) {
   
   var message = tdat[0],
-    expected = tdat[1].split(' ').join('');
+    expected = tdat[1].split(' ').join('').toLowerCase();
 
   tests["sync test sha256() for " + testFormat(message, FORMAT_MAX_MSG_LEN)] = function(test) {
     test.startTime();

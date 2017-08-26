@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "sha-256 in javascript",
   "main": "index.js",
+  "bin": {
+    "sha256": "./cli.js"
+  },
   "scripts": {
     "test": "node test.js"
   },
@@ -20,10 +23,10 @@
   },
   "homepage": "https://github.com/jeffallen6767/sha-256-js#readme",
   "devDependencies": {
-    "commander": "^2.11.0",
-    "utf8": "^2.1.2"
+    "testing": "https://github.com/jeffallen6767/testing.git"
   },
   "dependencies": {
-    "testing" : "https://github.com/jeffallen6767/testing.git"
+    "commander": "^2.11.0",
+    "utf8": "^2.1.2"
   }
 }

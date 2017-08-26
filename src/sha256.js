@@ -474,7 +474,11 @@ function sha256(input, next) {
     
     a,b,c,d,e,f,g,h,i,j,
     
-    u,v,w,x,y,z,
+    u,v,w,
+    
+    x = 0,
+    
+    y,z,
     
     digest;
   
@@ -491,21 +495,31 @@ function sha256(input, next) {
   
   var preProcessBlockWidth = inputBytes + MIN_PRE_CALC_BYTES + preProcessZeroPadBytes;
   //console.log("preProcessBlockWidth", preProcessBlockWidth);
-
-  var buffer = new Array(preProcessBlockWidth);
+  
+  var isbuffer = Buffer.isBuffer(input);
+  //console.log("isbuffer", isbuffer);
+  var buffer = isbuffer ? Buffer.allocUnsafe(preProcessBlockWidth-inputBytes) : new Array(preProcessBlockWidth);
   
   // add message
-  for (x=0; x<inputBytes; x++) {
-    buffer[x] = input.charCodeAt(x);
+  if (!isbuffer) {
+    for (x=0; x<inputBytes; x++) {
+      buffer[x] = input.charCodeAt(x);
+    }
   }
+  
+  //console.log("buffer", buffer);
   
   // add 1st pad byte:
   buffer[x++] = PAD_START_DEC_VAL;
+  
+  //console.log("buffer.length", buffer.length);
   
   // add zero pad fill:
   for (y=0; y<preProcessZeroPadBytes; y++) {
     buffer[x++] = 0;
   }
+  //console.log("buffer", buffer);
+  //console.log("buffer.length", buffer.length);
   
   // add 8 byte size:
   var inputSizeInBits = inputBytes * BYTE_SIZE;
@@ -522,9 +536,13 @@ function sha256(input, next) {
     var aByte = arrHexSize.shift() + arrHexSize.shift();
     buffer[x++] = parseInt(aByte, 16);
   }
-  
+  //console.log("buffer", buffer);
   //console.log("byte buffer int8");
   //outIdx(buffer, BYTE_SIZE);
+  
+  if (isbuffer) {
+    buffer = Buffer.concat([input, buffer], preProcessBlockWidth);
+  }
   
   /*
   break message into 512-bit chunks
@@ -670,7 +688,7 @@ function sha256(input, next) {
   //console.log("digest\n", digest);
   
   var hash = digest.map(function(uInt32) {
-    var hex = uInt32.toString(16).toUpperCase(),
+    var hex = uInt32.toString(16),
       len = hex.length;
     return len < BYTE_SIZE ? zeroBits4bytes.substr(len) + hex : hex;
   });
