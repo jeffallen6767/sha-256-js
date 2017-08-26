@@ -497,7 +497,7 @@ function sha256(input, next) {
   //console.log("preProcessBlockWidth", preProcessBlockWidth);
   
   var isbuffer = Buffer.isBuffer(input);
-  //console.log("isbuffer", isbuffer);
+
   var buffer = isbuffer ? Buffer.allocUnsafe(preProcessBlockWidth-inputBytes) : new Array(preProcessBlockWidth);
   
   // add message
@@ -507,20 +507,14 @@ function sha256(input, next) {
     }
   }
   
-  //console.log("buffer", buffer);
-  
   // add 1st pad byte:
   buffer[x++] = PAD_START_DEC_VAL;
-  
-  //console.log("buffer.length", buffer.length);
   
   // add zero pad fill:
   for (y=0; y<preProcessZeroPadBytes; y++) {
     buffer[x++] = 0;
   }
-  //console.log("buffer", buffer);
-  //console.log("buffer.length", buffer.length);
-  
+
   // add 8 byte size:
   var inputSizeInBits = inputBytes * BYTE_SIZE;
   //console.log("inputSizeInBits", inputSizeInBits);
@@ -536,10 +530,7 @@ function sha256(input, next) {
     var aByte = arrHexSize.shift() + arrHexSize.shift();
     buffer[x++] = parseInt(aByte, 16);
   }
-  //console.log("buffer", buffer);
-  //console.log("byte buffer int8");
-  //outIdx(buffer, BYTE_SIZE);
-  
+
   if (isbuffer) {
     buffer = Buffer.concat([input, buffer], preProcessBlockWidth);
   }
