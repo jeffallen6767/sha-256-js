@@ -1,6 +1,6 @@
 {
   "name": "sha-256-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sha-256 in javascript",
   "main": "index.js",
   "bin": {
