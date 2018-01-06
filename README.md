@@ -50,6 +50,17 @@ npm install -g
 Examples:
 
 ```sh
+  Usage: cli [options]
+
+
+  Options:
+
+    -V, --version             output the version number
+    -m, --message [text]      text to apply sha-256
+    -f, --file [path]         file to apply sha-256
+    -c, --compare [checksum]  Checksum to compare generated with
+    -h, --help                output usage information
+
 C:\Users\Malachi\Downloads>dir
  Volume in drive C has no label.
  Volume Serial Number is 164D-63E3
@@ -65,11 +76,11 @@ C:\Users\Malachi\Downloads>dir
 C:\Users\Malachi\Downloads>sha256 -f gpg4win-2.3.4.exe
 9342019e69d14a360ba6d01e66733578bcfa1e00151d7ccfeba4cdc177ed224b
 
-C:\Users\Malachi\Downloads>sha256 abc
+C:\Users\Malachi\Downloads>sha256 -m abc
 ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
 
-C:\Users\Malachi\Downloads>sha256 "abc"
-ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+C:\Users\Malachi\Downloads>sha256 -m "a b c"
+0e9f64031fcb2bc708b531c2a20441580425d151a38503f38592a7dd36019d3b
 
 ```
 ---
