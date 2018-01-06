@@ -50,7 +50,7 @@ npm install -g
 Examples:
 
 ```sh
-  Usage: cli [options]
+  Usage: sha256  [options]
 
 
   Options:
@@ -62,6 +62,7 @@ Examples:
     -h, --help                output usage information
 
 C:\Users\Malachi\Downloads>dir
+
  Volume in drive C has no label.
  Volume Serial Number is 164D-63E3
 
