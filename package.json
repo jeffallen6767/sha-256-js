@@ -26,6 +26,7 @@
     "testing": "https://github.com/jeffallen6767/testing.git"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "commander": "^2.11.0",
     "utf8": "^2.1.2"
   }
